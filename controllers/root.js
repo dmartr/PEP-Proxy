@@ -40,8 +40,8 @@ var Root = (function() {
                     var action = req.method;
                     var resource = req.url.substring(1, req.url.length);
 
-                    AZF.check_permissions(auth_token, user_info, resource, action, function () {
-
+                    AZF.check_permissions(auth_token, user_info, resource, action, function (resp) {
+                        console.log("**********", resp);
                         redir_request(req, res, user_info);
 
                     }, function (status, e) {
@@ -103,7 +103,11 @@ var Root = (function() {
             method: req.method,
             headers: proxy.getClientIp(req, req.headers)
         };
-        proxy.sendData('http', options, req.body, res);
+
+        console.log('redirijo a la app ', options);
+
+        res.send(200);
+
 
     };
 
